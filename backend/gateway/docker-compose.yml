@@ -3,7 +3,7 @@ version: "3.7"
 services:
   spring:
     container_name: spring
-    build: ./backend/gateway
+    build: .
     ports:
       - "9000:9000"
     volumes:
