@@ -38,6 +38,9 @@ dependencies {
     // Spring Tester
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+
 }
 
 dependencyManagement {
