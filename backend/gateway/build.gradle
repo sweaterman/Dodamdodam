@@ -8,12 +8,6 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
 repositories {
     mavenCentral()
 }
@@ -23,21 +17,12 @@ ext {
 }
 
 dependencies {
-
-    // Spring boot Starter Web
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    // Spring Cloud Eureka Server
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
-
-    // Lombok
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-
-    // Spring Tester
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+    testImplementation 'io.projectreactor:reactor-test'
 }
 
 dependencyManagement {
