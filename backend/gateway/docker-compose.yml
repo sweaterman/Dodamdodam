@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  spring:
+    container_name: spring
+    build: ./backend/gateway
+    ports:
+      - "9000:9000"
+    volumes:
+      - /spring:/image
+    restart: on-failure
+
