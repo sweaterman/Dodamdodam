@@ -19,4 +19,3 @@ spring:
           uri: lb://MAIN-SERVICE
           filters:
             - RewritePath=/dodam/(?<segment>.*), /$\{segment}
-
