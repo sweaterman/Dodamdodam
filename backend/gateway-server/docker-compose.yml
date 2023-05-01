@@ -6,6 +6,7 @@ services:
     build: .
     ports:
       - "9000:9000"
+      - "9001:9001"
     volumes:
       - /spring:/image
     restart: on-failure
