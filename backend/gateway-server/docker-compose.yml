@@ -15,5 +15,8 @@ services:
     ports:
       - "9000:9000"
 
-~
-
+~ spring-test:
+    container_name: spring-text
+    build; ./first-service
+    ports:
+      - "8000:8000"
