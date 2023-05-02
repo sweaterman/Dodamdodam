@@ -14,6 +14,6 @@ services:
     build: ./gateway
     ports:
       - "9000:9000"
-    volumes:
-      - /gateway:/gateway
-    restart: on-failure
+
+~
+

@@ -2,7 +2,7 @@
 # 유레카 서버가 웹 서비스의 성격으로 구동됨
 # 포트 번호 지정
 server:
-  port: 9001
+  port: 8761
 
 # 마이크로 서비스를 담당하는 스프링 부트 프레임 워크에
 # 각각의 마이크로 서비스에 고유한 아이디를 부여하는 설명
@@ -16,12 +16,6 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
 
-logging:
-  level:
-    root: DEBUG
-    com.example.gateway: DEBUG
-  file:
-    name: /logs/gateway.log
-  pattern:
-    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
-    file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+  
+  
