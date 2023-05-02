@@ -3,7 +3,7 @@ version: "3.7"
 services:
   spring-eureka:
     container_name: spring-eureka
-    build: ,/eureka
+    build: ./eureka
     ports:
       - "9001:9001"
     volumes:
