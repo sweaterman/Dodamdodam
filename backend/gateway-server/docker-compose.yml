@@ -5,18 +5,15 @@ services:
     container_name: spring-eureka
     build: ./eureka
     ports:
-      - "9001:9001"
+      - "8761:8761"
     volumes:
-      - /eureka:/eureka
+      - /eureka:/image
     restart: on-failure
   spring-gateway:
     container_name: spring-gateway
     build: ./gateway
     ports:
       - "9000:9000"
-
-~ spring-test:
-    container_name: spring-text
-    build; ./first-service
-    ports:
-      - "8000:8000"
+    volumes:
+      - "/gateway:/image"
+    restart: on-failure
