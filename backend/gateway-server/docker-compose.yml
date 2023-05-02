@@ -5,9 +5,9 @@ services:
     container_name: spring-eureka
     build: ./eureka
     ports:
-      - "9001:9001"
+      - "8761:8761"
     volumes:
-      - /eureka:/eureka
+      - /eureka:/image
     restart: on-failure
   spring-gateway:
     container_name: spring-gateway
@@ -15,5 +15,5 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - /gateway:/gateway
+      - "/gateway:/image"
     restart: on-failure
