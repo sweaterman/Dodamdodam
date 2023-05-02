@@ -8,5 +8,5 @@ services:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - /spring:/image
+      - /spring:/spring
     restart: on-failure
