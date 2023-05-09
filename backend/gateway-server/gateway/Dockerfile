@@ -1,9 +1,3 @@
-#FROM azul/zulu-openjdk:11
-#WORKDIR /gateway
-#COPY ./build/libs/gateway-0.0.1-SNAPSHOT.jar gateway.jar
-#ENTRYPOINT ["java", "-jar", "gateway.jar"]
-# CMD java -jar eureka.jar & java -jar gateway.jar
-
 FROM azul/zulu-openjdk:11
 WORKDIR /gateway
 COPY ./build/libs/gateway-0.0.1-SNAPSHOT.jar gateway-server.jar
