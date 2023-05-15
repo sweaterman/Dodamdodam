@@ -14,7 +14,7 @@ public class Notify {
   private Long notifySeq;
   private String content;
   private int type; //1. 채팅  2. 알림장  3. 투약 4. 등하원
-  private Long typeSeq;
+  private Long typeSeq; //채팅방seq, 알림장seq, 투약seq...
   private Long sendUserSeq;
   private Long receiveUserSeq;
   private boolean readState = false;
