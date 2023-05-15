@@ -1,6 +1,7 @@
 package com.wohaha.notify.controller;
 
 import com.wohaha.notify.domain.Notify;
+import com.wohaha.notify.domain.NotifyResponseDto;
 import com.wohaha.notify.repository.NotifyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,7 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 @RestController
-@RequestMapping("/notify")
+@RequiredArgsConstructor
 @Slf4j
 //@RequiredArgsConstructor
 public class NotifyController {
@@ -27,34 +28,45 @@ public class NotifyController {
         return notifyRepository.save(notify).log(); //Object를 리턴하면 자동으로 JSON 변환 (MessageConverter)가 해줌
     }
 
-
-    //[완료] 알림 리스트 중 특정 알림 클릭을 할 때 읽음 처리하기.
+    // 알림 버튼 눌렀을 때 알림 리스트들.
     @CrossOrigin
-    @PutMapping()
-    public Mono<Notify> readStateChange(@RequestBody NotifyDto notifyIdx){
-        return notifyRepository.findById(notifyIdx.getNotifyIdx())
+    @GetMapping(value = "/notify/{userSeq}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Notify> findByUser(@PathVariable Long userSeq) {
+
+        return notifyRepository.findByReceiveUserSeq(userSeq).subscribeOn(Schedulers.boundedElastic());
+    }
+
+
+    //알림 리스트 중 특정 알림 클릭을 할 때 읽음 처리하기.
+//    @CrossOrigin
+//    @PutMapping("/notify")
+//    public Mono<Notify> readStateChange(@RequestBody NotifyResponseDto notifySeq){
+//        return notifyRepository.findById(notifySeq.getNotifySeq())
+//                .switchIfEmpty(Mono.error(new Exception("TASK_NOT_FOUND")))
+//                .map(b -> {
+//                    b.setReadState(true);
+//                    return b;
+//                })
+//                .flatMap(notifyRepository::save);
+//    }
+
+    @CrossOrigin
+    @PutMapping("/notify")
+    public Mono<Void> readStateChange(@RequestBody NotifyResponseDto notifySeq){
+
+        return notifyRepository.findById(notifySeq.getNotifySeq())
                 .switchIfEmpty(Mono.error(new Exception("TASK_NOT_FOUND")))
                 .map(b -> {
                     b.setReadState(true);
                     return b;
                 })
-                .flatMap(notifyRepository::save);
+                .flatMap(notifyRepository::save)
+                .then(notifyRepository.findByReceiveUserSeq(notifySeq.getUserSeq())
+                .subscribeOn(Schedulers.boundedElastic())
+                        .then());
     }
 
-    // 알림 버튼 눌렀을 때 알림 리스트들.
-    @CrossOrigin
-    @GetMapping(value = "/notify/{userIdx}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Notify> findByUser(@PathVariable Long userIdx) {
 
-        return notifyRepository.findByUser(userIdx).subscribeOn(Schedulers.boundedElastic());
-    }
 
-    // 특정 이벤트에 따른 알림 메세지 데이터 추가
-    @CrossOrigin
-    @PostMapping("/notify")
-    public Mono<Notify> setMsg(@RequestBody Notify notify){
-
-        return notifyRepository.save(notify).log(); //Object를 리턴하면 자동으로 JSON 변환 (MessageConverter)가 해줌
-    }
 
 }
