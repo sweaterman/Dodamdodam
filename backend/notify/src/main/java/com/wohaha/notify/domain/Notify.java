@@ -14,7 +14,7 @@ public class Notify {
   @Id
   private String notifySeq;
   private String content;
-  private int type; //. 알림장  2 투약  3. 등하원
+  private int type; //1. 알림장  2 투약  3. 등하원
   private Long typeSeq; //알림장seq, 투약seq...
   private Long sendUserSeq;
   private Long receiveUserSeq;

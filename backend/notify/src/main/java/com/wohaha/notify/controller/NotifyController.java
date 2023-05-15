@@ -38,32 +38,16 @@ public class NotifyController {
 
 
     //알림 리스트 중 특정 알림 클릭을 할 때 읽음 처리하기.
-//    @CrossOrigin
-//    @PutMapping("/notify")
-//    public Mono<Notify> readStateChange(@RequestBody NotifyResponseDto notifySeq){
-//        return notifyRepository.findById(notifySeq.getNotifySeq())
-//                .switchIfEmpty(Mono.error(new Exception("TASK_NOT_FOUND")))
-//                .map(b -> {
-//                    b.setReadState(true);
-//                    return b;
-//                })
-//                .flatMap(notifyRepository::save);
-//    }
-
     @CrossOrigin
     @PutMapping("/notify")
-    public Mono<Void> readStateChange(@RequestBody NotifyResponseDto notifySeq){
-
+    public Mono<Notify> readStateChange(@RequestBody NotifyResponseDto notifySeq){
         return notifyRepository.findById(notifySeq.getNotifySeq())
                 .switchIfEmpty(Mono.error(new Exception("TASK_NOT_FOUND")))
                 .map(b -> {
                     b.setReadState(true);
                     return b;
                 })
-                .flatMap(notifyRepository::save)
-                .then(notifyRepository.findByReceiveUserSeq(notifySeq.getUserSeq())
-                .subscribeOn(Schedulers.boundedElastic())
-                        .then());
+                .flatMap(notifyRepository::save);
     }
 
 
