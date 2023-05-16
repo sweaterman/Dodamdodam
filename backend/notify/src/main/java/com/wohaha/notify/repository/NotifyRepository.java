@@ -16,6 +16,6 @@ public interface NotifyRepository extends ReactiveMongoRepository<Notify, String
   @Tailable
   @Query("{ $and: [ { receiveUserSeq: ?0 }, { readState: { $eq: false } } ] }")  //알림을 읽지 않았을때만
   Flux<Notify> findByReceiveUserSeq (Long receiveUserSeq);
-  
+
 
 }
