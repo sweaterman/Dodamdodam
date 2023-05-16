@@ -24,3 +24,12 @@ spring:
           uri: http://70.12.246.36:9090
           filters:
             - RewritePath=/dodam/(?<segment>.*), /$\{segment}
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allow-credentials: false
+            allowedHeaders: "*"
+            allo정wedMethods: "*"
