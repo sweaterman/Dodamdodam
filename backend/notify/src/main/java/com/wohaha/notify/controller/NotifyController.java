@@ -3,6 +3,7 @@ package com.wohaha.notify.controller;
 import com.wohaha.notify.domain.Notify;
 import com.wohaha.notify.domain.NotifyResponseDto;
 import com.wohaha.notify.repository.NotifyRepository;
+import com.wohaha.notify.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,12 @@ public class NotifyController {
 
     // 알림 버튼 눌렀을 때 알림 리스트들.
     @CrossOrigin
-    @GetMapping(value = "/notify/{userSeq}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Notify> findByUser(@PathVariable Long userSeq) {
-
+    @GetMapping(value = "/notify/{token}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Notify> findByUser(@PathVariable String token) {
+        Long userSeq = Long.parseLong(JwtUtil.getClaimAttribute(token, "userSeq"));
         return notifyRepository.findByReceiveUserSeq(userSeq).subscribeOn(Schedulers.boundedElastic());
     }
+
 
 
     //알림 리스트 중 특정 알림 클릭을 할 때 읽음 처리하기.
