@@ -13,9 +13,10 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface NotifyRepository extends ReactiveMongoRepository<Notify, String> {
 
+  //알림 읽지 않았을때, 최신순으로 조회
   @Tailable
-  @Query("{ $and: [ { receiveUserSeq: ?0 }, { readState: { $eq: false } } ] }")  //알림을 읽지 않았을때만
-  Flux<Notify> findByReceiveUserSeq (Long receiveUserSeq);
+  @Query(value = "{ $and: [ { receiveUserSeq: ?0 }, { readState: { $eq: false } } ] }", sort = "{ createdAt: -1 }")
+  Flux<Notify> findByReceiveUserSeq(Long receiveUserSeq);
 
 
 }
