@@ -40,7 +40,6 @@ SSAFY 8기 2학기 자율 프로젝트 **입상** 🏆
 
 <br>
 
-[웹사이트 바로가기](https://dodamdodam.site)
 
 
 <br>
